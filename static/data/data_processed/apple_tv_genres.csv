@@ -1,0 +1,54 @@
+genre,count
+Comedy,659
+Adventure,153
+ Comedy,147
+ Documentary,188
+Crime,591
+ Drama,813
+ Mystery,339
+ Fantasy,91
+Action,183
+ Adventure,93
+ Animation,109
+ Game-Show,24
+ Romance,168
+ Family,183
+ Crime,160
+Documentary,713
+ History,278
+ Music,35
+ Sci-Fi,54
+Game-Show,41
+ Reality-TV,106
+Animation,92
+Drama,537
+ War,56
+ News,8
+Biography,114
+Family,45
+ Talk-Show,27
+Reality-TV,232
+ Western,20
+ Horror,62
+ Thriller,215
+ Musical,11
+Western,8
+ Sport,30
+Thriller,16
+News,5
+Musical,4
+Mystery,8
+History,32
+Talk-Show,9
+Fantasy,4
+ Biography,4
+Romance,6
+Music,5
+Horror,8
+Sci-Fi,3
+Sport,5
+ Short,12
+Reality,4
+Adult,1
+ Soap,1
+War,1

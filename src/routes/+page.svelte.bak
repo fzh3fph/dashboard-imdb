@@ -1,0 +1,73 @@
+<script>
+  // You can add interactivity here, if needed. For now, it's a simple layout.
+</script>
+
+<style>
+  /* Global reset and body styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e1e; /* Dark gray background */
+    color: #f0f0f0; /* Light gray text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  /* Container to center elements vertically and horizontally */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  /* Button styling */
+  .btn {
+    background-color: #007aff; /* Corporate blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+  }
+
+  /* Bubble styling */
+  .bubble {
+    background-color: #404040; /* Lighter gray for bubble */
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    max-width: 300px;
+    word-wrap: break-word;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<div class="container">
+
+  <div class="bubble">
+    This is a text bubble that represents a modern UI element.
+  </div>
+  
+  <div class="bubble">
+    This is a text bubble that represents a modern UI element.
+  </div>
+  
+  <button class="btn">Click Me</button>
+</div>

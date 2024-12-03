@@ -1,0 +1,6 @@
+// +page.js
+export async function load() {
+  return {
+    props: {}
+  };
+}
