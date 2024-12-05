@@ -8,7 +8,7 @@
     let margins = { top: 20, right: 20, bottom: 40, left: 5 };
 
     // Chart dimensions
-    let width = 340;
+    let width = 300;
     let height = 480 * 0.6;
     let radius = Math.min(width, height) / 2 - 40;
 
@@ -90,12 +90,13 @@
         background-color: #404040;
         border-radius: 10px;
         padding: 5px;
-        padding-right: 20px;
+        padding-right: 30px;
         width: 100%;
     }
 
     .legend {
         margin-right: 5px;
+        margin-left: 10px;
         background: rgba(255, 255, 255, 0.1);
         padding: 5px;
         border-radius: 10px;
