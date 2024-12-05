@@ -91,7 +91,7 @@
         border-radius: 10px;
         padding: 5px;
         padding-right: 30px;
-        width: 100%;
+        
     }
 
     .legend {
