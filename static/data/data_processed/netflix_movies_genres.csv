@@ -1,54 +1,30 @@
 genre,count
-Drama,3052
- Romance,2192
+Drama,7148
+Romance,2270
 Action,2635
- Adventure,785
- Sci-Fi,375
- Crime,1264
- Thriller,1619
-Biography,724
- Drama,4096
- War,240
- Western,45
-Adventure,872
- Mystery,962
- Music,416
-Crime,902
- Sport,305
-Comedy,4440
-Mystery,52
- Animation,628
- Comedy,1206
- Family,688
- Fantasy,619
-Horror,473
- History,502
- Horror,577
- Biography,94
- Musical,173
-Documentary,903
-Animation,252
- Film-Noir,10
-Fantasy,44
-Sci-Fi,16
-Thriller,101
-Romance,78
- Documentary,459
-Family,89
- Short,186
-Music,16
-War,2
-Western,5
-Musical,18
- News,7
-Sport,6
-History,7
-Reality-TV,3
- TV Movie,1
- Reality-TV,6
-Short,14
-Talk-Show,6
+Adventure,1657
+Sci-Fi,391
+Crime,2166
+Thriller,1720
+Biography,818
+War,242
+Western,50
+Mystery,1014
+Music,432
+Sport,311
+Comedy,5646
+Animation,880
+Family,777
+Fantasy,663
+Horror,1050
+History,509
+Musical,191
+Documentary,1362
+Film-Noir,10
+Short,200
+News,7
+Reality-TV,9
+TV Movie,1
+Talk-Show,7
 Adult,1
- Game-Show,2
-Game-Show,2
- Talk-Show,1
+Game-Show,4

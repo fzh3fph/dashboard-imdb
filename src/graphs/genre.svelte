@@ -44,33 +44,35 @@
     };
 </script>
 
-<svg width={width} height={height} on:mousemove={updateCursorPosition}>
-    <!-- Background Circle (Donut) -->
-    <g transform={`translate(${width / 2}, ${height / 2})`}>
-        {#each chartData as segment, index}
-            <path
-                d={arcGenerator(segment)}
-                fill={color(index)}
-                stroke="white"
-                stroke-width="1"
-                on:mouseenter={() => hoveredGenre = datapoints[index].genre}
-                on:mouseleave={() => hoveredGenre = ''}
-            />
+<div class="chart-container">
+    <!-- Legend -->
+    <div class="legend">
+        {#each topGenres as genre, index}
+            <div class="legend-item">
+                <div
+                    class="color-box"
+                    style="background-color: {color(index)};"
+                ></div>
+                <span>{genre.genre}</span>
+            </div>
         {/each}
-    </g>
-</svg>
+    </div>
 
-<!-- Legend -->
-<div class="legend">
-    {#each topGenres as genre, index}
-        <div class="legend-item">
-            <div
-                class="color-box"
-                style="background-color: {color(index)};"
-            ></div>
-            <span>{genre.genre}</span>
-        </div>
-    {/each}
+    <!-- Chart -->
+    <svg width={width} height={height} on:mousemove={updateCursorPosition}>
+        <g transform={`translate(${width / 2}, ${height / 2})`}>
+            {#each chartData as segment, index}
+                <path
+                    d={arcGenerator(segment)}
+                    fill={color(index)}
+                    stroke="white"
+                    stroke-width="1"
+                    on:mouseenter={() => hoveredGenre = datapoints[index].genre}
+                    on:mouseleave={() => hoveredGenre = ''}
+                />
+            {/each}
+        </g>
+    </svg>
 </div>
 
 <!-- Hovered Genre Name Display at Cursor -->
@@ -81,8 +83,41 @@
 {/if}
 
 <style>
-    svg {
+    .chart-container {
+        display: flex;
+        align-items: center;
+        justify-content: start;
         background-color: #404040;
+        border-radius: 10px;
+        padding: 20px;
+        width: 100%;
+    }
+
+    .legend {
+        margin-right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .color-box {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        border-radius: 3px;
+    }
+
+    svg {
+        background-color: transparent;
         border-radius: 10px;
     }
 
@@ -93,25 +128,5 @@
     path:hover {
         opacity: 0.8;
         cursor: pointer;
-    }
-
-    .legend {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-
-    .color-box {
-        width: 16px;
-        height: 16px;
-        margin-right: 8px;
-        border-radius: 3px;
     }
 </style>
