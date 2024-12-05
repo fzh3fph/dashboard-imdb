@@ -8,7 +8,7 @@
     let margins = { top: 20, right: 20, bottom: 40, left: 20 };
 
     // Chart dimensions
-    let width = 480;
+    let width = 380;
     let height = width * 0.6;
     let radius = Math.min(width, height) / 2 - 40;
 
