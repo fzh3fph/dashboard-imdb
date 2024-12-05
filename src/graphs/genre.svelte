@@ -15,6 +15,9 @@
     // Sort datapoints by count in descending order
     datapoints = [...datapoints].sort((a, b) => b.count - a.count);
 
+    // Extract the top 5 genres
+    const topGenres = datapoints.slice(0, 5);
+
     // Create pie chart arc generator
     const pieChart = pie()
         .value(d => d.count)
@@ -57,6 +60,19 @@
     </g>
 </svg>
 
+<!-- Legend -->
+<div class="legend">
+    {#each topGenres as genre, index}
+        <div class="legend-item">
+            <div
+                class="color-box"
+                style="background-color: {color(index)};"
+            ></div>
+            <span>{genre.genre}</span>
+        </div>
+    {/each}
+</div>
+
 <!-- Hovered Genre Name Display at Cursor -->
 {#if hoveredGenre}
     <div style="position: absolute; top: {cursorPosition.y + 10}px; left: {cursorPosition.x + 10}px; padding: 8px 12px; background: rgba(0, 0, 0, 0.7); color: white; font-family: 'Roboto', sans-serif; font-size: 14px; border-radius: 5px;">
@@ -77,5 +93,25 @@
     path:hover {
         opacity: 0.8;
         cursor: pointer;
+    }
+
+    .legend {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .color-box {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        border-radius: 3px;
     }
 </style>
