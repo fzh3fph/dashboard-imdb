@@ -5,11 +5,11 @@
 
     export let datapoints = [];
 
-    let margins = { top: 20, right: 20, bottom: 40, left: 20 };
+    let margins = { top: 20, right: 20, bottom: 40, left: 5 };
 
     // Chart dimensions
     let width = 380;
-    let height = width * 0.6;
+    let height = 480 * 0.6;
     let radius = Math.min(width, height) / 2 - 40;
 
     // Sort datapoints by count in descending order
@@ -89,7 +89,7 @@
         justify-content: start;
         background-color: #404040;
         border-radius: 10px;
-        padding: 20px;
+        padding: 5px;
         width: 100%;
     }
 
