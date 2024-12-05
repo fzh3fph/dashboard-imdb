@@ -94,9 +94,9 @@
     }
 
     .legend {
-        margin-right: 20px;
+        margin-right: 5px;
         background: rgba(255, 255, 255, 0.1);
-        padding: 15px;
+        padding: 5px;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
