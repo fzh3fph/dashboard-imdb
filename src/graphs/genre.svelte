@@ -5,11 +5,11 @@
 
     export let datapoints = [];
 
-    let margins = { top: 20, right: 20, bottom: 40, left: 5 };
+    let margins = { top: 20, right: 20, bottom: 40, left: 20 };
 
     // Chart dimensions
-    let width = 320;
-    let height = 460 * 0.6;
+    let width = 325;
+    let height = 465 * 0.6;
     let radius = Math.min(width, height) / 2 - 40;
 
     // Sort datapoints by count in descending order
