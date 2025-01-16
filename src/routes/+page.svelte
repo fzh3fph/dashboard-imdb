@@ -174,6 +174,31 @@
     <h1>Netflix vs Apple vs Amazon</h1>
   </div>
 
+  <!-- Bottom section with control buttons and all graph view -->
+  <div class="bottom">
+    <!-- Left Section for control buttons and explanatory text 
+    <div class="bottom-left">
+      <div class="bubble">
+        {currentText} 
+      </div>
+      
+      <div><button class="btn" on:click={() => switchGraph('Ratings')}>Ratings</button></div>
+      <div><button class="btn" on:click={() => switchGraph('Genres')}>Genres</button></div>
+    </div>-->
+
+    <!-- Right Section for 'All' graphs (aggregated data) -->
+    <div class="bottom-right">
+      <h3>All</h3> <!-- Title for All graphs -->
+      {#if currentGraphType === 'Ratings'}
+        <!-- Show ratings graph for all movies -->
+        <RatingsAll datapoints1={data.netflix_movies_avg_rating} datapoints2={data.apple_movies_avg_rating} datapoints3={data.amazon_movies_avg_rating} year="releaseYear" rating="average_rating" />
+      {:else}
+        <!-- Show genre distribution graph for all movies -->
+        <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
+      {/if}
+    </div>
+  </div>
+
   <!-- Top section for displaying the individual graphs for Netflix, Apple, and Amazon -->
   <div class="top">
     <!-- Netflix Section -->
@@ -213,28 +238,5 @@
     </div>
   </div>
 
-  <!-- Bottom section with control buttons and all graph view -->
-  <div class="bottom">
-    <!-- Left Section for control buttons and explanatory text -->
-    <div class="bottom-left">
-      <div class="bubble">
-        {currentText} <!-- Display current graph description -->
-      </div>
-      <!-- Buttons to switch graph types -->
-      <div><button class="btn" on:click={() => switchGraph('Ratings')}>Ratings</button></div>
-      <div><button class="btn" on:click={() => switchGraph('Genres')}>Genres</button></div>
-    </div>
-
-    <!-- Right Section for 'All' graphs (aggregated data) -->
-    <div class="bottom-right">
-      <h3>All</h3> <!-- Title for All graphs -->
-      {#if currentGraphType === 'Ratings'}
-        <!-- Show ratings graph for all movies -->
-        <RatingsAll datapoints={data.netflix_movies_avg_rating} year="releaseYear" rating="average_rating" />
-      {:else}
-        <!-- Show genre distribution graph for all movies -->
-        <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
-      {/if}
-    </div>
-  </div>
+  
 </div>

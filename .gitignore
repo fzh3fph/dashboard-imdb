@@ -1,5 +1,8 @@
 node_modules
 
+package.json
+svelte.config.js
+
 # Output
 .output
 .vercel

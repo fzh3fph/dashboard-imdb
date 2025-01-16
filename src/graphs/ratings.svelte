@@ -8,8 +8,8 @@
     let margins = { left: 50, top: 20, bottom: 50, right: 20 };
 
     // Adjust container dimensions for scaling
-    let containerWidth = 480; 
-    let containerHeight = containerWidth * 0.6;
+    let containerWidth = 350; 
+    let containerHeight = containerWidth * 0.5;
     
     // Chart dimensions
     const chartWidth = containerWidth - margins.left - margins.right;

@@ -1,15 +1,20 @@
 <script>
     import { scaleBand, scaleLinear } from 'd3-scale';
+    import {line } from 'd3';
 
-    export let datapoints = [];
+    export let datapoints1 = [];
+    export let datapoints2 = [];    
+    export let datapoints3 = [];
     export let year = 'releaseYear';
     export let rating = 'average_rating';
+
+    const allData = [...datapoints3];
 
     let margins = { left: 50, top: 20, bottom: 50, right: 20 };
 
     // 15% Bigger dimensions compared to the previous chart
-    let containerWidth = 480 * 1.15; // 15% wider
-    let containerHeight = containerWidth * 0.6; // Keep aspect ratio (60% of width)
+    let containerWidth = 700; // 15% wider
+    let containerHeight = containerWidth * 0.5; // Keep aspect ratio (60% of width)
 
     // Chart dimensions
     const chartWidth = containerWidth - margins.left - margins.right;
@@ -17,7 +22,7 @@
 
     // Scales
     const scaleX = scaleBand()
-        .domain(datapoints.map(d => parseInt(d[year]))) // Parse years to integers
+        .domain(allData.map(d => parseInt(d[year]))) // Parse years to integers
         .range([0, chartWidth])
         .padding(0.1);
 
@@ -26,8 +31,12 @@
         .domain([0, 10])
         .range([chartHeight, 0]);
 
+    const lineGenerator = line()
+        .x(d => scaleX(parseInt(d[year])))
+        .y(d => scaleY(d[rating]));
+
     // Filter years to display only a subset of labels
-    const xLabelsToShow = Math.ceil(datapoints.length / 10);
+    const xLabelsToShow = Math.ceil(allData.length / 10);
 </script>
 
 <svg width={containerWidth} height={containerHeight} style="border-radius: 10px;">
@@ -36,7 +45,7 @@
 
     <!-- Chart Group -->
     <g transform={`translate(${margins.left}, ${margins.top})`}>
-        <!-- Bars -->
+        <!-- Bars 
         {#each datapoints as datapoint}
             <rect
                 x={scaleX(parseInt(datapoint[year]))}
@@ -45,10 +54,16 @@
                 height={chartHeight - scaleY(datapoint[rating])}
                 fill="#9193bf" 
             />
-        {/each}
+        {/each}-->
+        <path d={lineGenerator(datapoints1)} fill="none" stroke="#B3EBF2" stroke-width="1" />
+
+        <path d={lineGenerator(datapoints2)} fill="none" stroke="#C3B1E1" stroke-width="1" />
+
+        <path d={lineGenerator(datapoints3)} fill="none" stroke="#77DD77" stroke-width="1" />
+
 
         <!-- X-Axis Labels (Filtered) -->
-        {#each datapoints as datapoint, i}
+        {#each allData as datapoint, i}
             {#if i % xLabelsToShow === 0}
                 <text
                     x={scaleX(parseInt(datapoint[year])) + scaleX.bandwidth() / 2}
