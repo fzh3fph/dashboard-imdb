@@ -138,14 +138,14 @@
       display: flex;
       justify-content: center;
       gap: 10px; /* Space between buttons */
-      padding-top: 220px;
+      padding-top: 180px;
       padding-left: 100px;
   }
   .button-container-right {
       display: flex;
       justify-content: center;
       gap: 10px; /* Space between buttons */
-      padding-top: 220px;
+      padding-top: 180px;
       padding-right: 100px;
   }
 
