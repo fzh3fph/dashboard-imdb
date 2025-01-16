@@ -9,7 +9,7 @@
 
     // Adjust container dimensions for scaling
     let containerWidth = 350; 
-    let containerHeight = containerWidth * 0.5;
+    let containerHeight = containerWidth * 0.6;
     
     // Chart dimensions
     const chartWidth = containerWidth - margins.left - margins.right;
