@@ -28,7 +28,7 @@
 
     // Y-axis is fixed to range 0 to 10
     const scaleY = scaleLinear()
-        .domain([0, 10])
+        .domain([4, 10])
         .range([chartHeight, 0]);
 
     const lineGenerator = line()

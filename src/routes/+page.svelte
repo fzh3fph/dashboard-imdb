@@ -230,7 +230,7 @@
       <h3>All</h3> <!-- Title for All graphs -->
       {#if currentGraphType === 'Ratings'}
         <!-- Show ratings graph for all movies -->
-        <RatingsAll datapoints1={data.netflix_movies_avg_rating} datapoints2={data.apple_movies_avg_rating} datapoints3={data.amazon_movies_avg_rating} year="releaseYear" rating="average_rating" />
+        <RatingsAll datapoints1={data.netflix_all_avg_rating} datapoints2={data.netflix_movies_avg_rating} datapoints3={data.netflix_tv_avg_rating} year="releaseYear" rating="average_rating" />
       {:else}
         <!-- Show genre distribution graph for all movies -->
         <GenreAll datapoints={data.netflix_movies_genres} genre="genre" count="count" />
