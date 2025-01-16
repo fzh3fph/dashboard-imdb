@@ -138,12 +138,14 @@
       display: flex;
       justify-content: center;
       gap: 10px; /* Space between buttons */
+      padding-top: 220px;
       padding-left: 100px;
   }
   .button-container-right {
       display: flex;
       justify-content: center;
       gap: 10px; /* Space between buttons */
+      padding-top: 220px;
       padding-right: 100px;
   }
 
@@ -159,15 +161,14 @@
       border: none;
       cursor: pointer;
       outline: none;
-      padding-top: 220px;
   }
 
   .button:hover {
-      color: darkslategray; /* Change color on hover */
+      color: #505050; /* Change color on hover */
   }
 
   .button:active {
-      transform: scale(0.9); /* Slight shrink effect on click */
+      transform: scale(0.8); /* Slight shrink effect on click */
   }
 
   /* Button styling */
