@@ -16,14 +16,14 @@
   let currentText = $state('Comparing Average Rating per Year for Movies'); // Default text
 
   // Function to switch between graph types and their corresponding text
-  function switchGraph(graphType) {
-    currentGraphType = graphType; // Update graph type
-
+  function switchGraph() {
     // Conditional text change based on the selected graph type
-    if (graphType === 'Ratings') {
-      currentText = 'Comparing Average Rating per Year for Movies'; // Text for Ratings
-    } else if (graphType === 'Genres') {
+    if (currentGraphType === 'Ratings') {
+      currentGraphType = 'Genres'
       currentText = 'Comparing Genre Distribution of Movies'; // Text for Genres
+    } else if (currentGraphType === 'Genres') {
+      currentGraphType = 'Ratings'
+      currentText = 'Comparing Average Rating per Year for Movies';
     }
   }
 </script>
@@ -134,6 +134,42 @@
     padding: 5px;
   }
 
+  .button-container-left {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Space between buttons */
+      padding-left: 100px;
+  }
+  .button-container-right {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Space between buttons */
+      padding-right: 100px;
+  }
+
+  .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      font-size: calc(80px * 0.6);
+      color: gray;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding-top: 220px;
+  }
+
+  .button:hover {
+      color: darkslategray; /* Change color on hover */
+  }
+
+  .button:active {
+      transform: scale(0.9); /* Slight shrink effect on click */
+  }
+
   /* Button styling */
   .btn {
     background-color: #007aff; /* Primary blue color */
@@ -186,6 +222,8 @@
       <div><button class="btn" on:click={() => switchGraph('Genres')}>Genres</button></div>
     </div>-->
 
+    <div class="button-container-left"><button class="button" on:click={() => switchGraph()}>&lt;</button></div>
+
     <!-- Right Section for 'All' graphs (aggregated data) -->
     <div class="bottom-right">
       <h3>All</h3> <!-- Title for All graphs -->
@@ -194,9 +232,11 @@
         <RatingsAll datapoints1={data.netflix_movies_avg_rating} datapoints2={data.apple_movies_avg_rating} datapoints3={data.amazon_movies_avg_rating} year="releaseYear" rating="average_rating" />
       {:else}
         <!-- Show genre distribution graph for all movies -->
-        <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
+        <GenreAll datapoints={data.netflix_movies_genres} genre="genre" count="count" />
       {/if}
     </div>
+
+    <div class="button-container-right"><button class="button" on:click={() => switchGraph()}>&gt;</button></div>
   </div>
 
   <!-- Top section for displaying the individual graphs for Netflix, Apple, and Amazon -->

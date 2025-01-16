@@ -55,11 +55,11 @@
                 fill="#9193bf" 
             />
         {/each}-->
-        <path d={lineGenerator(datapoints1)} fill="none" stroke="#B3EBF2" stroke-width="1" />
+        <path d={lineGenerator(datapoints1)} fill="none" stroke="#B3EBF2" stroke-width="2" />
 
-        <path d={lineGenerator(datapoints2)} fill="none" stroke="#C3B1E1" stroke-width="1" />
+        <path d={lineGenerator(datapoints2)} fill="none" stroke="#C3B1E1" stroke-width="2" />
 
-        <path d={lineGenerator(datapoints3)} fill="none" stroke="#77DD77" stroke-width="1" />
+        <path d={lineGenerator(datapoints3)} fill="none" stroke="#77DD77" stroke-width="2" />
 
 
         <!-- X-Axis Labels (Filtered) -->

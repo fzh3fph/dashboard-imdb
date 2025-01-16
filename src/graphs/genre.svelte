@@ -8,8 +8,8 @@
     let margins = { top: 20, right: 20, bottom: 40, left: 20 };
 
     // Chart dimensions
-    let width = 325;
-    let height = 465 * 0.6;
+    let width = 325 * 0.7;
+    let height = 465 * 0.6 * 0.7;
     let radius = Math.min(width, height) / 2 - 40;
 
     // Sort datapoints by count in descending order
