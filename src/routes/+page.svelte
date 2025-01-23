@@ -201,6 +201,11 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow around bubble */
     margin-bottom: 15px; /* Space between bubble and buttons */
   }
+
+  h4{
+    padding-bottom: 5px;
+  }
+
 </style>
 
 <!-- Main container for content -->
@@ -227,10 +232,12 @@
 
     <!-- Right Section for 'All' graphs (aggregated data) -->
     <div class="bottom-right">
-      <h3>All</h3> <!-- Title for All graphs -->
+      <h3>Average IMDb Rating by Release Year</h3> <!-- Title for All graphs -->
+      <h4><span style="color: #A0C4FF">Netlix</span> vs. <span style="color: #FFADAD">Apple</span> vs. <span style="color: #CAFFBF">Amazon</span></h4>
+      
       {#if currentGraphType === 'Ratings'}
         <!-- Show ratings graph for all movies -->
-        <RatingsAll datapoints1={data.netflix_all_avg_rating} datapoints2={data.netflix_movies_avg_rating} datapoints3={data.netflix_tv_avg_rating} year="releaseYear" rating="average_rating" />
+        <RatingsAll datapoints1={data.netflix_both_avg_rating} datapoints2={data.apple_both_avg_rating} datapoints3={data.amazon_both_avg_rating} datapoints4={data.all_both_avg_rating} year="releaseYear" rating="average_rating" />
       {:else}
         <!-- Show genre distribution graph for all movies -->
         <GenreAll datapoints={data.netflix_movies_genres} genre="genre" count="count" />
@@ -245,9 +252,19 @@
     <!-- Netflix Section -->
     <div class="top-section">
       <h3>Netflix</h3> <!-- Netflix title -->
+      <h4><span style="color: #769dde">Movies</span> vs. <span style="color: #c0d6fc">TV</span></h4>
+
       {#if currentGraphType === 'Ratings'}
         <!-- Show ratings graph for Netflix -->
-        <Ratings datapoints={data.netflix_movies_avg_rating} year="releaseYear" rating="average_rating" />
+
+        <Ratings datapoints1={data.netflix_both_avg_rating} 
+        datapoints2={data.netflix_movies_avg_rating} 
+        datapoints3={data.netflix_tv_avg_rating} 
+        color1="#769dde"
+        color2="#c0d6fc" 
+        year="releaseYear" rating="average_rating" />
+        <!--cbdbf5-->
+        <!-- <Ratings datapoints={data.apple_movies_avg_rating} year="releaseYear" rating="average_rating" />-->
       {:else}
         <!-- Show genre distribution graph for Netflix -->
         <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
@@ -257,9 +274,17 @@
     <!-- Apple Section -->
     <div class="top-section">
       <h3>Apple</h3> <!-- Apple title -->
+      <h4><span style="color: #fc90ac">Movies</span> vs. <span style="color: #ffc2d2">TV</span></h4>
       {#if currentGraphType === 'Ratings'}
         <!-- Show ratings graph for Apple -->
-        <Ratings datapoints={data.apple_movies_avg_rating} year="releaseYear" rating="average_rating" />
+        <Ratings datapoints1={data.apple_both_avg_rating} 
+        datapoints2={data.apple_movies_avg_rating} 
+        datapoints3={data.apple_tv_avg_rating} 
+        color1="#fc90ac"
+        color2="#ffc2d2"
+        year="releaseYear" rating="average_rating" />
+
+        <!--<Ratings datapoints={data.apple_movies_avg_rating} year="releaseYear" rating="average_rating" />-->
       {:else}
         <!-- Show genre distribution graph for Apple -->
         <Genre datapoints={data.apple_movies_genres} genre="genre" count="count" />
@@ -269,9 +294,17 @@
     <!-- Amazon Section -->
     <div class="top-section">
       <h3>Amazon</h3> <!-- Amazon title -->
+      <h4><span style="color: #abff99">Movies</span> vs. <span style="color: #d5ffcc">TV</span></h4>
       {#if currentGraphType === 'Ratings'}
         <!-- Show ratings graph for Amazon -->
-        <Ratings datapoints={data.amazon_movies_avg_rating} year="releaseYear" rating="average_rating" />
+        <Ratings datapoints1={data.amazon_both_avg_rating} 
+        datapoints2={data.amazon_movies_avg_rating} 
+        datapoints3={data.amazon_tv_avg_rating} 
+        color1="#abff99"
+        color2="#d5ffcc"
+        year="releaseYear" rating="average_rating" />
+
+        <!--<Ratings datapoints={data.amazon_movies_avg_rating} year="releaseYear" rating="average_rating" />-->
       {:else}
         <!-- Show genre distribution graph for Amazon -->
         <Genre datapoints={data.amazon_movies_genres} genre="genre" count="count" />

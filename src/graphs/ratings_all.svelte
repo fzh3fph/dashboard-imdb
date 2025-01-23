@@ -1,20 +1,22 @@
 <script>
     import { scaleBand, scaleLinear } from 'd3-scale';
-    import {line } from 'd3';
+    import {line, curveMonotoneX, curveCatmullRom, path, curveCardinal } from 'd3';
 
     export let datapoints1 = [];
     export let datapoints2 = [];    
     export let datapoints3 = [];
+    export let datapoints4 = [];
     export let year = 'releaseYear';
     export let rating = 'average_rating';
 
-    const allData = [...datapoints3];
+    const allData = [...datapoints4];
 
-    let margins = { left: 50, top: 20, bottom: 50, right: 20 };
+    let margins = { left: 60, top: 30, bottom: 40, right: 30 };
 
-    // 15% Bigger dimensions compared to the previous chart
-    let containerWidth = 700; // 15% wider
-    let containerHeight = containerWidth * 0.5; // Keep aspect ratio (60% of width)
+    let containerWidth = 800; 
+    let containerHeight = 330; 
+
+    const line_width = 3;
 
     // Chart dimensions
     const chartWidth = containerWidth - margins.left - margins.right;
@@ -26,18 +28,21 @@
         .range([0, chartWidth])
         .padding(0.1);
 
-    // Y-axis is fixed to range 0 to 10
+    // Y-axis is fixed to range 5 to 9
     const scaleY = scaleLinear()
-        .domain([4, 10])
+        .domain([5, 9])
         .range([chartHeight, 0]);
 
     const lineGenerator = line()
+        .curve(curveCardinal.tension(0.9))
         .x(d => scaleX(parseInt(d[year])))
-        .y(d => scaleY(d[rating]));
+        .y(d => scaleY(d[rating]))
+        .defined(function (d) { return d[rating] > 1.0 ; });
 
     // Filter years to display only a subset of labels
     const xLabelsToShow = Math.ceil(allData.length / 10);
 </script>
+
 
 <svg width={containerWidth} height={containerHeight} style="border-radius: 10px;">
     <!-- Background -->
@@ -55,11 +60,11 @@
                 fill="#9193bf" 
             />
         {/each}-->
-        <path d={lineGenerator(datapoints1)} fill="none" stroke="#B3EBF2" stroke-width="2" />
+        <path d={lineGenerator(datapoints2)} opacity="1.0" fill="none" stroke="#ff94ae" stroke-width={line_width} />
 
-        <path d={lineGenerator(datapoints2)} fill="none" stroke="#C3B1E1" stroke-width="2" />
+        <path d={lineGenerator(datapoints3)} opacity="0.7" fill="none" stroke="#CAFFBF" stroke-width={line_width} />
 
-        <path d={lineGenerator(datapoints3)} fill="none" stroke="#77DD77" stroke-width="2" />
+        <path d={lineGenerator(datapoints1)} opacity="0.8" fill="none" stroke="#A0C4FF" stroke-width={line_width} />
 
 
         <!-- X-Axis Labels (Filtered) -->
@@ -94,16 +99,7 @@
         {/each}
 
         <!-- Labels -->
-        <text
-            x={chartWidth / 2}
-            y={chartHeight + 40}
-            text-anchor="middle"
-            fill="white"
-            font-size="12"
-            font-weight="bold"
-        >
-            Release Year
-        </text>
+        
         <text
             x={-chartHeight / 2}
             y="-30"
@@ -119,6 +115,7 @@
 </svg>
 
 <style>
+
     rect {
         transition: all 0.3s;
     }

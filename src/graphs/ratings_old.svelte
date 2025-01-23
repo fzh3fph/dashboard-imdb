@@ -1,53 +1,34 @@
 <script>
     import { scaleBand, scaleLinear } from 'd3-scale';
-    import {line, curveMonotoneX } from 'd3';
 
-    export let datapoints1 = [];
-    export let datapoints2 = [];    
-    export let datapoints3 = [];
+    export let datapoints = [];
     export let year = 'releaseYear';
     export let rating = 'average_rating';
 
-     // New props for line colors
-    export let color1 = "#A0C4FF"; // Default color for line 1
-    export let color2 = "#CAFFBF"; // Default color for line 2
-
-    const line_width = 1.5;
-
-    const allData = [...datapoints1];
-
-    let margins = { left: 50, top: 30, bottom: 40, right: 30 };
+    let margins = { left: 50, top: 20, bottom: 50, right: 20 };
 
     // Adjust container dimensions for scaling
     let containerWidth = 480 * 0.7; 
-    let containerHeight = containerWidth * 0.55;
-
+    let containerHeight = containerWidth * 0.6;
+    
     // Chart dimensions
     const chartWidth = containerWidth - margins.left - margins.right;
     const chartHeight = containerHeight - margins.top - margins.bottom;
 
     // Scales
     const scaleX = scaleBand()
-        .domain(allData.map(d => parseInt(d[year]))) // Parse years to integers
+        .domain(datapoints.map(d => parseInt(d[year]))) // Parse years to integers
         .range([0, chartWidth])
         .padding(0.1);
 
-    // Y-axis is fixed to range 5 to 9
+    // Y-axis is fixed to range 0 to 10
     const scaleY = scaleLinear()
-        .domain([5, 9])
+        .domain([0, 10])
         .range([chartHeight, 0]);
 
-    const lineGenerator = line()
-        .curve(curveMonotoneX)
-        .x(d => scaleX(parseInt(d[year])))
-        .y(d => scaleY(d[rating]))
-        .defined(function (d) { return d[rating] > 1.0 ; });
-
     // Filter years to display only a subset of labels
-    const xLabelsToShow = Math.ceil(allData.length / 6);
+    const xLabelsToShow = Math.ceil(datapoints.length / 10);
 </script>
-
-
 
 <svg width={containerWidth} height={containerHeight} style="border-radius: 10px;">
     <!-- Background -->
@@ -55,24 +36,19 @@
 
     <!-- Chart Group -->
     <g transform={`translate(${margins.left}, ${margins.top})`}>
-        <!-- Bars 
+        <!-- Bars -->
         {#each datapoints as datapoint}
             <rect
                 x={scaleX(parseInt(datapoint[year]))}
                 y={scaleY(datapoint[rating])}
                 width={scaleX.bandwidth()}
                 height={chartHeight - scaleY(datapoint[rating])}
-                fill="#9193bf" 
+                fill="#7eafcb"
             />
-        {/each}-->
-
-        <path d={lineGenerator(datapoints2)} fill="none" stroke={color1} stroke-width={line_width} />
-
-        <path d={lineGenerator(datapoints3)} fill="none" stroke={color2} stroke-width={line_width} />
-
+        {/each}
 
         <!-- X-Axis Labels (Filtered) -->
-        {#each allData as datapoint, i}
+        {#each datapoints as datapoint, i}
             {#if i % xLabelsToShow === 0}
                 <text
                     x={scaleX(parseInt(datapoint[year])) + scaleX.bandwidth() / 2}
@@ -102,14 +78,24 @@
             </g>
         {/each}
 
-        
+        <!-- Labels -->
+        <text
+            x={chartWidth / 2}
+            y={chartHeight + 40}
+            text-anchor="middle"
+            fill="white"
+            font-size="12"
+            font-weight="bold"
+        >
+            Release Year
+        </text>
         <text
             x={-chartHeight / 2}
             y="-30"
             text-anchor="middle"
             transform="rotate(-90)"
             fill="white"
-            font-size="10"
+            font-size="12"
             font-weight="bold"
         >
             Average Rating
@@ -121,6 +107,7 @@
     rect {
         transition: all 0.3s;
     }
+
 
     text {
         font-family: 'Roboto', sans-serif;
