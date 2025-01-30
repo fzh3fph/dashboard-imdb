@@ -114,6 +114,27 @@ export async function load({ fetch, params }) {
     const amazon_tv_per_year_CSV = await fetch(base + '/data/data_processed/amazon_tv_per_year.csv', {headers: {'Content-Type': 'text/csv'}})
     let amazon_tv_per_year_TextCSV = await amazon_tv_per_year_CSV.text()
     let amazon_tv_per_year_ParsedCSV = Papa.parse(amazon_tv_per_year_TextCSV, {header: true})
+
+    // All Both per Year
+    const all_both_per_year_CSV = await fetch(base + '/data/data_processed/all_both_per_year.csv', {headers: {'Content-Type': 'text/csv'}});
+    let all_both_per_year_TextCSV = await all_both_per_year_CSV.text();
+    let all_both_per_year_ParsedCSV = Papa.parse(all_both_per_year_TextCSV, {header: true});
+
+    // Netflix Both per Year
+    const netflix_both_per_year_CSV = await fetch(base + '/data/data_processed/netflix_both_per_year.csv', {headers: {'Content-Type': 'text/csv'}});
+    let netflix_both_per_year_TextCSV = await netflix_both_per_year_CSV.text();
+    let netflix_both_per_year_ParsedCSV = Papa.parse(netflix_both_per_year_TextCSV, {header: true});
+
+    // Apple Both per Year
+    const apple_both_per_year_CSV = await fetch(base + '/data/data_processed/apple_both_per_year.csv', {headers: {'Content-Type': 'text/csv'}});
+    let apple_both_per_year_TextCSV = await apple_both_per_year_CSV.text();
+    let apple_both_per_year_ParsedCSV = Papa.parse(apple_both_per_year_TextCSV, {header: true});
+
+    // Amazon Both per Year
+    const amazon_both_per_year_CSV = await fetch(base + '/data/data_processed/amazon_both_per_year.csv', {headers: {'Content-Type': 'text/csv'}});
+    let amazon_both_per_year_TextCSV = await amazon_both_per_year_CSV.text();
+    let amazon_both_per_year_ParsedCSV = Papa.parse(amazon_both_per_year_TextCSV, {header: true});
+
   
     return { 
       all_both_avg_rating: all_both_avg_rating_ParsedCSV.data,
@@ -144,7 +165,12 @@ export async function load({ fetch, params }) {
   
       netflix_tv_per_year: netflix_tv_per_year_ParsedCSV.data,
       apple_tv_per_year: apple_tv_per_year_ParsedCSV.data,
-      amazon_tv_per_year: amazon_tv_per_year_ParsedCSV.data
+      amazon_tv_per_year: amazon_tv_per_year_ParsedCSV.data,
+
+      all_both_per_year: all_both_per_year_ParsedCSV.data,
+      netflix_both_per_year: netflix_both_per_year_ParsedCSV.data,
+      apple_both_per_year: apple_both_per_year_ParsedCSV.data,
+      amazon_both_per_year: amazon_both_per_year_ParsedCSV.data
     }
   }
   

@@ -8,9 +8,8 @@
     export let year = 'releaseYear';
     export let rating = 'average_rating';
 
-     // New props for line colors
-    export let color1 = "#A0C4FF"; // Default color for line 1
-    export let color2 = "#CAFFBF"; // Default color for line 2
+    export let color1 = "#A0C4FF"; 
+    export let color2 = "#CAFFBF";
 
     const line_width = 1.5;
 
@@ -18,53 +17,40 @@
 
     let margins = { left: 50, top: 30, bottom: 40, right: 30 };
 
-    // Adjust container dimensions for scaling
-    let containerWidth = 480 * 0.7; 
-    let containerHeight = containerWidth * 0.55;
+    let container; 
+    let containerWidth = 0; 
+    let containerHeight = 0; 
 
     // Chart dimensions
-    const chartWidth = containerWidth - margins.left - margins.right;
-    const chartHeight = containerHeight - margins.top - margins.bottom;
+    $: chartWidth = containerWidth - margins.left - margins.right;
+    $: chartHeight = containerHeight - margins.top - margins.bottom;
 
     // Scales
-    const scaleX = scaleBand()
+    $: scaleX = scaleBand()
         .domain(allData.map(d => parseInt(d[year]))) // Parse years to integers
         .range([0, chartWidth])
         .padding(0.1);
 
     // Y-axis is fixed to range 5 to 9
-    const scaleY = scaleLinear()
+    $: scaleY = scaleLinear()
         .domain([5, 9])
         .range([chartHeight, 0]);
 
-    const lineGenerator = line()
+    $: lineGenerator = line()
         .curve(curveMonotoneX)
         .x(d => scaleX(parseInt(d[year])))
         .y(d => scaleY(d[rating]))
         .defined(function (d) { return d[rating] > 1.0 ; });
 
     // Filter years to display only a subset of labels
-    const xLabelsToShow = Math.ceil(allData.length / 6);
+    $: xLabelsToShow = Math.ceil(allData.length / 6);
 </script>
 
 
 
-<svg width={containerWidth} height={containerHeight} style="border-radius: 10px;">
-    <!-- Background -->
-    <rect width="100%" height="100%" fill="#404040" rx="10" ry="10" />
-
+<svg bind:clientWidth={containerWidth} bind:clientHeight={containerHeight} bind:this={container} style="width: 100%; height: 100%;">
     <!-- Chart Group -->
     <g transform={`translate(${margins.left}, ${margins.top})`}>
-        <!-- Bars 
-        {#each datapoints as datapoint}
-            <rect
-                x={scaleX(parseInt(datapoint[year]))}
-                y={scaleY(datapoint[rating])}
-                width={scaleX.bandwidth()}
-                height={chartHeight - scaleY(datapoint[rating])}
-                fill="#9193bf" 
-            />
-        {/each}-->
 
         <path d={lineGenerator(datapoints2)} fill="none" stroke={color1} stroke-width={line_width} />
 
@@ -78,7 +64,7 @@
                     x={scaleX(parseInt(datapoint[year])) + scaleX.bandwidth() / 2}
                     y={chartHeight + 20}
                     text-anchor="middle"
-                    fill="white"
+                    fill="lightgray"
                     font-size="10"
                 >
                     {parseInt(datapoint[year])}
@@ -94,7 +80,7 @@
                     x="-10"
                     y="5"
                     text-anchor="end"
-                    fill="white"
+                    fill="lightgray"
                     font-size="10"
                 >
                     {tick}
@@ -108,7 +94,7 @@
             y="-30"
             text-anchor="middle"
             transform="rotate(-90)"
-            fill="white"
+            fill="lightgray"
             font-size="10"
             font-weight="bold"
         >
@@ -118,9 +104,6 @@
 </svg>
 
 <style>
-    rect {
-        transition: all 0.3s;
-    }
 
     text {
         font-family: 'Roboto', sans-serif;

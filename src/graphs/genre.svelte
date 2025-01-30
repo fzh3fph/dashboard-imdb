@@ -7,10 +7,10 @@
 
     let margins = { top: 20, right: 20, bottom: 40, left: 20 };
 
-    // Chart dimensions
-    let width = 325 * 0.7;
-    let height = 465 * 0.6 * 0.7;
-    let radius = Math.min(width, height) / 2 - 40;
+    let container; 
+    let width = 0;
+    let height = 0;
+    $: radius = Math.min(width, height) / 2 * 0.8;
 
     // Sort datapoints by count in descending order
     datapoints = [...datapoints].sort((a, b) => b.count - a.count);
@@ -24,8 +24,8 @@
         .sort(null); // Sort is disabled to keep the order as is in the sorted data
 
     // Arc generator for the donut chart
-    const arcGenerator = arc()
-        .innerRadius(radius - 40)
+    $: arcGenerator = arc()
+        .innerRadius(radius * 0.4)
         .outerRadius(radius);
 
     // Color scale using pastel colors
@@ -39,7 +39,7 @@
     let cursorPosition = { x: 0, y: 0 };
 
     // Update cursor position
-    const updateCursorPosition = (event) => {
+    $: updateCursorPosition = (event) => {
         cursorPosition = { x: event.clientX, y: event.clientY };
     };
 </script>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Chart -->
-    <svg width={width} height={height} on:mousemove={updateCursorPosition}>
+    <svg bind:clientWidth={width} bind:clientHeight={height} on:mousemove={updateCursorPosition} bind:this={container}>
         <g transform={`translate(${width / 2}, ${height / 2})`}>
             {#each chartData as segment, index}
                 <path

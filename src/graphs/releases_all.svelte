@@ -7,9 +7,9 @@
     export let datapoints3 = [];
     export let datapoints4 = [];
     export let year = 'releaseYear';
-    export let rating = 'average_rating';
+    export let rating = 'count';
 
-    const allData = [...datapoints4];
+    const allData = datapoints4;
 
     let margins = { left: 60, top: 30, bottom: 40, right: 30 };
 
@@ -29,9 +29,9 @@
         .range([0, chartWidth])
         .padding(0.1);
 
-    // Y-axis is fixed to range 5 to 9
+    // Y-axis is fixed to range 5 to 9  
     $: scaleY = scaleLinear()
-        .domain([5, 9])
+        .domain([0, 4000])
         .range([chartHeight, 0]);
 
     $: lineGenerator = line()
@@ -99,7 +99,7 @@
             font-size="12"
             font-weight="bold"
         >
-            Average Rating
+            
         </text>
     </g>
 </svg>
