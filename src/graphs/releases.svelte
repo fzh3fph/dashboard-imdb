@@ -15,7 +15,7 @@
 
     /// Convert and validate data
     $: processedData = data.map(d => {
-        const yearVal = d.year.toString();
+        const yearVal = +d.year || 0;
         const moviesVal = +d.movies || 0; // Force numeric, default to 0
         const tvVal = +d.tv || 0; // Force numeric, default to 0
         
@@ -61,7 +61,7 @@
     $: series = processedData.length ? stackGenerator(processedData) : [];
 
     // X-axis label filtering
-    $: xLabelsToShow = Math.ceil(processedData.length / 10);
+    $: xLabelsToShow = Math.ceil(processedData.length / 6);
 </script>
 
 <svg bind:clientWidth={containerWidth} bind:clientHeight={containerHeight} bind:this={container} style="width: 100%; height: 100%;">
