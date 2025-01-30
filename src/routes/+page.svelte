@@ -4,7 +4,7 @@
   import RatingsAll from '../graphs/ratings_all.svelte'; 
   import Genre from '../graphs/genre.svelte'; 
   import GenreAll from '../graphs/genre_all.svelte'; 
-
+  import Releases from '../graphs/releases.svelte'; 
   import ReleasesAll from '../graphs/releases_all.svelte'; 
 
   // Importing base path configuration from the app's paths
@@ -275,7 +275,12 @@
                 <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
 
               {:else}
-                <img src="releases_netflix.png">
+                <Releases 
+                data={data.netflix_movies_and_tv_per_year}
+                color1="#769dde"
+                color2="#c0d6fc" 
+                year="year" 
+                />
               {/if}
 
             </div>
@@ -302,7 +307,12 @@
                 <Genre datapoints={data.apple_movies_genres} genre="genre" count="count" />
 
               {:else}
-                <img src="releases_apple.png">
+              <Releases 
+              data={data.apple_movies_and_tv_per_year}
+              color1="#fc90ac"
+              color2="#ffc2d2"
+              year="year" 
+              />
               {/if}
 
             </div>
@@ -329,7 +339,12 @@
                 <Genre datapoints={data.amazon_movies_genres} genre="genre" count="count" />
 
               {:else}
-                <img src="releases_amazon.png">
+              <Releases 
+              data={data.amazon_movies_and_tv_per_year}
+              color1="#abff99"
+              color2="#d5ffcc"
+              year="year" 
+              />
               {/if}
 
             </div>

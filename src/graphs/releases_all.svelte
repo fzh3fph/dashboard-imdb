@@ -87,20 +87,6 @@
                 </text>
             </g>
         {/each}
-
-        <!-- Labels -->
-        
-        <text
-            x={-chartHeight / 2}
-            y="-30"
-            text-anchor="middle"
-            transform="rotate(-90)"
-            fill="lightgray"
-            font-size="12"
-            font-weight="bold"
-        >
-            
-        </text>
     </g>
 </svg>
 
