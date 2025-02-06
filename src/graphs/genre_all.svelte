@@ -31,13 +31,13 @@
     $: scaleX = scaleBand()
         .domain(genresOrder)
         .range([0, chartWidth])
-        .paddingInner(0.1)
-        .paddingOuter(0.1);
+        .paddingInner(0.2)
+        .paddingOuter(0.2);
 
     $: scaleSubgroup = scaleBand()
         .domain(['netflix', 'apple', 'amazon'])
         .range([0, scaleX.bandwidth()])
-        .padding(0.1);
+        .padding(0.25);
 
     $: maxYValue = Math.max(
         ...processedData.flatMap(d => [d.netflix, d.apple, d.amazon])
@@ -61,6 +61,7 @@
                     width={scaleSubgroup.bandwidth()}
                     height={chartHeight - scaleY(datapoint.netflix)}
                     fill={color1}
+                    rx="5"
                 />
                 <rect
                     x={scaleSubgroup('apple')}
@@ -68,6 +69,7 @@
                     width={scaleSubgroup.bandwidth()}
                     height={chartHeight - scaleY(datapoint.apple)}
                     fill={color2}
+                    rx="5"
                 />
                 <rect
                     x={scaleSubgroup('amazon')}
@@ -75,6 +77,7 @@
                     width={scaleSubgroup.bandwidth()}
                     height={chartHeight - scaleY(datapoint.amazon)}
                     fill={color3}
+                    rx="5"
                 />
             </g>
         {/each}

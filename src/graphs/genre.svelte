@@ -59,6 +59,7 @@
                     width={scaleSubgroup.bandwidth()}
                     height={chartHeight - scaleY(datapoint.movies)}
                     fill={color1}
+                    rx="2"
                 />
                 <rect
                     x={scaleSubgroup('tv')}
@@ -66,6 +67,7 @@
                     width={scaleSubgroup.bandwidth()}
                     height={chartHeight - scaleY(datapoint.tv)}
                     fill={color2}
+                    rx="2"
                 />
             </g>
         {/each}
