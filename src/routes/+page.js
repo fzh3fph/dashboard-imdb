@@ -155,6 +155,26 @@ export async function load({ fetch, params }) {
     let amazon_movies_and_tv_per_year_TextCSV = await amazon_movies_and_tv_per_year_CSV.text();
     let amazon_movies_and_tv_per_year_ParsedCSV = Papa.parse(amazon_movies_and_tv_per_year_TextCSV, {header: true});
 
+     // All Movies and TV Genres
+    const all_genres_CSV = await fetch(base + '/data/data_processed/all_genres.csv', {headers: {'Content-Type': 'text/csv'}});
+    let all_genres_TextCSV = await all_genres_CSV.text();
+    let all_genres_ParsedCSV = Papa.parse(all_genres_TextCSV, {header: true});
+
+    // Netflix Genres
+    const netflix_genres_CSV = await fetch(base + '/data/data_processed/netflix_genres.csv', {headers: {'Content-Type': 'text/csv'}});
+    let netflix_genres_TextCSV = await netflix_genres_CSV.text();
+    let netflix_genres_ParsedCSV = Papa.parse(netflix_genres_TextCSV, {header: true});
+
+    // Apple Genres
+    const apple_genres_CSV = await fetch(base + '/data/data_processed/apple_genres.csv', {headers: {'Content-Type': 'text/csv'}});
+    let apple_genres_TextCSV = await apple_genres_CSV.text();
+    let apple_genres_ParsedCSV = Papa.parse(apple_genres_TextCSV, {header: true});
+
+    // Amazon Genres
+    const amazon_genres_CSV = await fetch(base + '/data/data_processed/amazon_genres.csv', {headers: {'Content-Type': 'text/csv'}});
+    let amazon_genres_TextCSV = await amazon_genres_CSV.text();
+    let amazon_genres_ParsedCSV = Papa.parse(amazon_genres_TextCSV, {header: true});
+
 
   
     return { 
@@ -196,7 +216,12 @@ export async function load({ fetch, params }) {
       all_movies_and_tv_per_year: all_movies_and_tv_per_year_ParsedCSV.data,
       netflix_movies_and_tv_per_year: netflix_movies_and_tv_per_year_ParsedCSV.data,
       apple_movies_and_tv_per_year: apple_movies_and_tv_per_year_ParsedCSV.data,
-      amazon_movies_and_tv_per_year: amazon_movies_and_tv_per_year_ParsedCSV.data
+      amazon_movies_and_tv_per_year: amazon_movies_and_tv_per_year_ParsedCSV.data,
+
+      all_genres: all_genres_ParsedCSV.data,
+      netflix_genres: netflix_genres_ParsedCSV.data,
+      apple_genres: apple_genres_ParsedCSV.data,
+      amazon_genres: amazon_genres_ParsedCSV.data
     }
   }
   

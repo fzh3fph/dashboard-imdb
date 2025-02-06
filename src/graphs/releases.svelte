@@ -42,11 +42,7 @@
     $: scaleX = scaleBand()
         .domain(processedData.map(d => d.year)) // Use original year strings
         .range([0, chartWidth])
-        .padding(0.1);
-
-    // Add debug logs
-    $: console.log("Processed Data:", processedData);
-    $: console.log("Stack Series:", series);
+        .padding(0.1);    
 
     $: scaleY = scaleLinear()
         .domain([0, maxTotal])
@@ -62,6 +58,7 @@
 
     // X-axis label filtering
     $: xLabelsToShow = Math.ceil(processedData.length / 6);
+
 </script>
 
 <svg bind:clientWidth={containerWidth} bind:clientHeight={containerHeight} bind:this={container} style="width: 100%; height: 100%;">

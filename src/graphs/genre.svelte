@@ -1,133 +1,128 @@
 <script>
-    import { arc, pie } from 'd3-shape';
-    import { scaleOrdinal } from 'd3-scale';
-    import { schemePastel1 } from 'd3-scale-chromatic';
+    import { scaleBand, scaleLinear } from 'd3-scale';
 
-    export let datapoints = [];
+    export let data = [];
+    export let color1 = "#A0C4FF";
+    export let color2 = "#CAFFBF";
 
-    let margins = { top: 20, right: 20, bottom: 40, left: 20 };
+    const genresOrder = ['Drama', 'Comedy', 'Action', 'Romance', 'Thriller', 'Other'];
+    let margins = { left: 60, top: 30, bottom: 40, right: 30 };
+    let container;
+    let containerWidth = 0;
+    let containerHeight = 0;
 
-    let container; 
-    let width = 0;
-    let height = 0;
-    $: radius = Math.min(width, height) / 2 * 0.8;
+    // Process data to include all genres in order with defaults
+    $: processedData = genresOrder.map(genre => {
+        const entry = data.find(d => d.genre === genre) || { movies: 0, tv: 0 };
+        return {
+            genre: genre,
+            movies: Math.max(0, Math.min(100, +entry.movies || 0)),
+            tv: Math.max(0, Math.min(100, +entry.tv || 0))
+        };
+    });
 
-    // Sort datapoints by count in descending order
-    datapoints = [...datapoints].sort((a, b) => b.count - a.count);
+    // Chart dimensions
+    $: chartWidth = containerWidth - margins.left - margins.right;
+    $: chartHeight = containerHeight - margins.top - margins.bottom;
 
-    // Extract the top 5 genres
-    const topGenres = datapoints.slice(0, 5);
+    // Scales
+    $: scaleX = scaleBand()
+        .domain(genresOrder)
+        .range([0, chartWidth])
+        .paddingInner(0.1)
+        .paddingOuter(0.1);
 
-    // Create pie chart arc generator
-    const pieChart = pie()
-        .value(d => d.count)
-        .sort(null); // Sort is disabled to keep the order as is in the sorted data
+    $: scaleSubgroup = scaleBand()
+        .domain(['movies', 'tv'])
+        .range([0, scaleX.bandwidth()])
+        .padding(0.1);
 
-    // Arc generator for the donut chart
-    $: arcGenerator = arc()
-        .innerRadius(radius * 0.4)
-        .outerRadius(radius);
+    $: maxYValue = Math.max(
+        ...processedData.flatMap(d => [d.movies, d.tv])
+    );
 
-    // Color scale using pastel colors
-    const color = scaleOrdinal(schemePastel1);
-
-    // Prepare data for pie chart
-    const chartData = pieChart(datapoints);
-
-    // Track hovered genre and cursor position
-    let hoveredGenre = '';
-    let cursorPosition = { x: 0, y: 0 };
-
-    // Update cursor position
-    $: updateCursorPosition = (event) => {
-        cursorPosition = { x: event.clientX, y: event.clientY };
-    };
+    $: scaleY = scaleLinear()
+        .domain([0, maxYValue])
+        .range([chartHeight, 0])
+        .nice();
 </script>
 
-<div class="chart-container">
-    <!-- Legend -->
-    <div class="legend">
-        {#each topGenres as genre, index}
-            <div class="legend-item">
-                <div
-                    class="color-box"
-                    style="background-color: {color(index)};"
-                ></div>
-                <span>{genre.genre}</span>
-            </div>
-        {/each}
-    </div>
-
-    <!-- Chart -->
-    <svg bind:clientWidth={width} bind:clientHeight={height} on:mousemove={updateCursorPosition} bind:this={container}>
-        <g transform={`translate(${width / 2}, ${height / 2})`}>
-            {#each chartData as segment, index}
-                <path
-                    d={arcGenerator(segment)}
-                    fill={color(index)}
-                    stroke="white"
-                    stroke-width="1"
-                    on:mouseenter={() => hoveredGenre = datapoints[index].genre}
-                    on:mouseleave={() => hoveredGenre = ''}
+<svg bind:clientWidth={containerWidth} bind:clientHeight={containerHeight} bind:this={container} style="width: 100%; height: 100%;">
+    <g transform={`translate(${margins.left}, ${margins.top})`}>
+        <!-- Bars -->
+        {#each processedData as datapoint}
+            {@const x = scaleX(datapoint.genre)}
+            <g transform={`translate(${x}, 0)`}>
+                <rect
+                    x={scaleSubgroup('movies')}
+                    y={scaleY(datapoint.movies)}
+                    width={scaleSubgroup.bandwidth()}
+                    height={chartHeight - scaleY(datapoint.movies)}
+                    fill={color1}
                 />
-            {/each}
-        </g>
-    </svg>
-</div>
+                <rect
+                    x={scaleSubgroup('tv')}
+                    y={scaleY(datapoint.tv)}
+                    width={scaleSubgroup.bandwidth()}
+                    height={chartHeight - scaleY(datapoint.tv)}
+                    fill={color2}
+                />
+            </g>
+        {/each}
 
-<!-- Hovered Genre Name Display at Cursor -->
-{#if hoveredGenre}
-    <div style="position: absolute; top: {cursorPosition.y + 10}px; left: {cursorPosition.x + 10}px; padding: 8px 12px; background: rgba(0, 0, 0, 0.7); color: white; font-family: 'Roboto', sans-serif; font-size: 14px; border-radius: 5px;">
-        {hoveredGenre}
-    </div>
-{/if}
+        <!-- X Axis Labels -->
+        {#each processedData as datapoint}
+            <text
+                x={scaleX(datapoint.genre) + scaleX.bandwidth() / 2}
+                y={chartHeight + 20}
+                text-anchor="middle"
+                fill="lightgray"
+                font-size="10"
+            >
+                {datapoint.genre}
+            </text>
+        {/each}
+
+        <!-- Y Axis -->
+        {#each scaleY.ticks(5) as tick}
+            <g transform={`translate(0, ${scaleY(tick)})`}>
+                <line x1="0" x2={chartWidth} stroke="gray" stroke-dasharray="2,2" />
+                <text
+                    x="-10"
+                    y="5"
+                    text-anchor="end"
+                    fill="lightgray"
+                    font-size="10"
+                >
+                    {tick}%
+                </text>
+            </g>
+        {/each}
+
+        <!-- Axis Labels -->
+        <text
+            x={chartWidth / 2}
+            y={chartHeight + margins.bottom - 10}
+            text-anchor="middle"
+            fill="lightgray"
+            font-size="12"
+        >
+        </text>
+        <text
+            transform="rotate(-90)"
+            y="-40"
+            x={-chartHeight / 2}
+            text-anchor="middle"
+            fill="lightgray"
+            font-size="12"
+        >
+            Percentage (%)
+        </text>
+    </g>
+</svg>
 
 <style>
-    .chart-container {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        background-color: #404040;
-        border-radius: 10px;
-        padding: 5px;
-        padding-right: 30px;
-    }
-
-    .legend {
-        margin-right: 5px;
-        margin-left: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 5px;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .legend-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .color-box {
-        width: 16px;
-        height: 16px;
-        margin-right: 8px;
-        border-radius: 3px;
-    }
-
-    svg {
-        background-color: transparent;
-        border-radius: 10px;
-    }
-
-    path {
-        transition: all 0.3s ease;
-    }
-
-    path:hover {
-        opacity: 0.8;
-        cursor: pointer;
+    text {
+        font-family: 'Roboto', sans-serif;
     }
 </style>

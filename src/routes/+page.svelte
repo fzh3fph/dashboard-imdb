@@ -223,7 +223,7 @@
                />
 
               {:else if currentGraphType === 'Genres'}
-                <img src="genres_all.png">
+              <GenreAll data={data.all_genres}/>
 
               {:else}
                 <ReleasesAll 
@@ -272,7 +272,9 @@
                 year="releaseYear" rating="average_rating" />
 
               {:else if currentGraphType === 'Genres'}
-                <Genre datapoints={data.netflix_movies_genres} genre="genre" count="count" />
+                <Genre data={data.netflix_genres} 
+                color1="#769dde"
+                color2="#c0d6fc" />
 
               {:else}
                 <Releases 
@@ -304,7 +306,9 @@
                 year="releaseYear" rating="average_rating" /> 
 
               {:else if currentGraphType === 'Genres'}
-                <Genre datapoints={data.apple_movies_genres} genre="genre" count="count" />
+              <Genre data={data.apple_genres}
+              color1="#fc90ac"
+              color2="#ffc2d2"/>
 
               {:else}
               <Releases 
@@ -336,7 +340,9 @@
                 year="releaseYear" rating="average_rating" />
 
               {:else if currentGraphType === 'Genres'}
-                <Genre datapoints={data.amazon_movies_genres} genre="genre" count="count" />
+              <Genre data={data.amazon_genres}
+              color1="#abff99"
+              color2="#d5ffcc"/>
 
               {:else}
               <Releases 
