@@ -196,9 +196,9 @@
           {:else if currentGraphType === 'Genres'}
             <h3>Most common Genres</h3>
             <h4>
-              <span >Netlix</span> vs. 
-              <span >Apple</span> vs. 
-              <span >Amazon</span>
+              <span style="color: #A0C4FF">Netlix</span> vs. 
+              <span style="color: #fc90ac">Apple</span> vs. 
+              <span style="color: #CAFFBF">Amazon</span>
             </h4>          
           {:else}
             <h3>Volume of Released Content by Year</h3>
@@ -347,8 +347,8 @@
               {:else}
               <Releases 
               data={data.amazon_movies_and_tv_per_year}
-              color1="#abff99"
-              color2="#d5ffcc"
+              color1="#97ff80"
+              color2="#deffd6"
               year="year" 
               />
               {/if}
