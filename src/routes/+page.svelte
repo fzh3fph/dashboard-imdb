@@ -41,7 +41,7 @@
       font-family: 'Roboto', sans-serif;
       background-color: #1e1e1e;
       color: #f0f0f0;
-      height: 100vh;
+      height: 100%;
       display: flex;
       gap: 20px;
       flex-direction: column;
@@ -122,6 +122,7 @@
   footer {
       text-align: right;
       font-size: 0.8em;
+      padding-right: 2%;
   }
 
   /* Aspect ratio maintenance */
@@ -158,7 +159,7 @@
     padding-bottom: 5px; 
   }
 
-  .main-graph-wrapper h3 {font-size: 200%;}
+  .main-graph-wrapper h3 {font-size: 200%; padding-top: 4%;}
   .main-graph-wrapper h4 {padding-bottom: 20px;}
   .secondary-graph-wrapper h4 {font-size: 80%;}
 
@@ -171,7 +172,6 @@
 
 </style>
 
-    
     <div class="top-container">
 
         {#if currentGraphType === 'Ratings'}
