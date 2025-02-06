@@ -79,7 +79,7 @@
                 y={chartHeight + 20}
                 text-anchor="middle"
                 fill="lightgray"
-                font-size="10"
+                font-size="8"
             >
                 {datapoint.genre}
             </text>
@@ -118,7 +118,6 @@
             fill="lightgray"
             font-size="12"
         >
-            Percentage (%)
         </text>
     </g>
 </svg>

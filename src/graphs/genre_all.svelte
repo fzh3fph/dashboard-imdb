@@ -128,7 +128,6 @@
             fill="lightgray"
             font-size="12"
         >
-            Percentage (%)
         </text>
     </g>
 </svg>
